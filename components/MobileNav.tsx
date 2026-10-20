@@ -71,7 +71,7 @@ export default function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps)
         </div>
 
         {/* Live Mini Card */}
-        <div className="my-5 p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 border border-emerald-200/80 dark:border-emerald-800/50 shadow-sm">
+        <div className="my-5 p-4 rounded-2xl bg-linear-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/40 border border-emerald-200/80 dark:border-emerald-800/50 shadow-sm">
           <div className="flex items-center gap-2 text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-1.5">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>Live Audit Keuangan</span>

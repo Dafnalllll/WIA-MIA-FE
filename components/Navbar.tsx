@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import MobileNav from "@/components/MobileNav";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -200,75 +201,13 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Navigation Menu */}
-          {isOpen && (
-            <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 px-5 pt-3 pb-6 space-y-2 rounded-b-2xl shadow-xl backdrop-blur-xl">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-3.5 py-2.5 rounded-xl text-sm font-medium ${
-                    isActive(link.href)
-                      ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold"
-                      : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800">
-                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-wider px-3.5 py-1">
-                  Kategori Alokasi
-                </div>
-                <Link
-                  href="/allocation/logistik"
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:text-emerald-600"
-                >
-                  • Logistik & Pangan
-                </Link>
-                <Link
-                  href="/allocation/medis"
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:text-emerald-600"
-                >
-                  • Fasilitas Medis
-                </Link>
-                <Link
-                  href="/reports/audit"
-                  onClick={() => setIsOpen(false)}
-                  className="block px-3.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:text-emerald-600"
-                >
-                  • Laporan Audit PDF
-                </Link>
-              </div>
-              <div className="pt-3">
-                <Link
-                  href="/donations/new"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-600 text-white font-semibold text-center shadow-md shadow-emerald-600/20 text-sm"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                  Salur Donasi & Transparansi
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </div>
+      <MobileNav
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        navLinks={navLinks}
+      />
     </header>
   );
 }
