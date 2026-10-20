@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -14,23 +14,24 @@ interface MobileNavProps {
 export default function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setMounted(true);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-      const timer = setTimeout(() => setMounted(false), 300);
-      return () => clearTimeout(timer);
-    }
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen]);
 
-  if (!mounted && !isOpen) return null;
-
   return (
-    <div className={`fixed inset-0 z-50 flex md:hidden transition-all duration-300 ${isOpen ? "visible" : "invisible"}`}>
+    <div
+      aria-hidden={!isOpen}
+      inert={!isOpen}
+      className={`fixed inset-0 z-50 flex md:hidden transition-all duration-300 ${isOpen ? "visible" : "invisible"}`}
+    >
       {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300 ease-in-out ${
